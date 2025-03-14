@@ -29,17 +29,17 @@ class Pessoa:
     def get_salario(self):
         return self._salario
 
-    def is_trabalhando(self):
+    def is_trabalhar(self):
         return self._trabalhando
     def is_estudando(self):
         return self._estudando
 
-    def set_trabalhar(self, status):
+    def set_trabalhando(self, status):
         if self._trabalhando and status:
             print("ja esta trabalhando")
         elif not self._trabalhando and not status:
             print("que vida boa!")
-        elif not self._trabalhando and status: 
+        elif not self._trabalhando and status:  
             self._trabalhando = status
             self.set_salario(100)
         else:
@@ -81,33 +81,43 @@ class  Bebe(Pessoa):  # Herda da classe Pessoa
     def __init__(self, nome, data_nascimento, registro,
                  estudando=True, trabalhando=False):
         super().__init__(nome, data_nascimento, registro, estudando, trabalhando)
-        self.fome = True
-        self.chorando = True
-        self.dormindo = False
+        self._fome = True
+        self._chorando = True
+        self._dormindo = False
 
     def mamar(self):
-        if self.fome: #Só mama se estiver com fome
-            self.fome=False
-            self.chorando=False # O bebê para de chorar após mamar
+        if self._fome: #Só mama se estiver com fome
+            self._fome=False
+            self._chorando=False # O bebê para de chorar após mamar
             print(f'{self.__nome} mamou e está satisfeito.')
         else:
             print(f'{self.__nome} não está com fome e não quer mamar.')
 
     def chorar(self):
-        if self.chorando:
+        if self._chorando:
             print(f"{self.__nome} esta chorando!")
         else:
             print(f"{self.__nome} não esta chorando!")
 
     def dormir(self):
-        if not self.dormindo:
-            if self.fome: #Não pode dormir com fome
+        if not self._dormindo:
+            if self._fome: #Não pode dormir com fome
                 print(f"{self.__nome} está com fome e não consegue dormir.")
             else:
-                self.dormindo = True
+                self._dormindo = True
                 print(f"{self.__nome} foi dormir. Shhh, não faça barulho!")
         else:
             print(f"{self.__nome} ja está dormindo.")
+
+    def apresentar(self):  # Sobrescrevendo o metodo apresentar()
+        super().apresentar()  # super-representa a classe PAI e chama o metodo apresentar() da classe Pessoa
+        print(f"Fome: {'Sim' if self._fome else 'Não'}")
+        print(f"Chorando: {'Sim' if self._chorando else 'Não'}")
+        print(f"Dormindo: {'Sim' if self._dormindo else 'Não'}")
+        print("-" * 20)
+
+
+
 
 p1 = Pessoa("Lucas","23/09/1990","aghs", estudando=True, trabalhando=False)
 p1.apresentar()
